@@ -2,10 +2,11 @@
 name: code-reviewer
 description: Specialized agent for deep code reviews. Preloaded with code-review and security-audit skills. Use for PR reviews and security-sensitive code changes.
 model: sonnet
-tools: Read,Grep,Glob
+tools: Read,Grep,Glob,Write
 skills:
   - code-review
   - security-audit
+  - save-output
 ---
 
 You are a senior code reviewer and security engineer.
@@ -27,3 +28,7 @@ a security section using the security-audit skill format.
 
 If the review is clean (no issues found), confirm this explicitly with:
 "**Review passed.** No issues found in [scope]."
+
+## Save Output
+
+After presenting the review, run the **save-output** skill protocol.

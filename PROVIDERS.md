@@ -3,6 +3,24 @@
 Skills in this repository are designed as model-agnostic instruction sets.
 A skill's `SKILL.md` body is a system prompt that can be injected into any LLM.
 
+## CLI Installation
+
+Each provider has its own CLI tool. Engineers install whichever they use:
+
+```bash
+# Claude Code (reads CLAUDE.md)
+npm install -g @anthropic-ai/claude-code
+
+# Codex CLI (reads AGENTS.md)
+npm install -g @openai/codex
+
+# Gemini CLI (reads GEMINI.md)
+npm install -g @google/gemini-cli
+```
+
+All three CLIs pick up their respective config files automatically when run inside
+this repo. Skills are available via `scripts/load-skill.sh` for Codex and Gemini.
+
 ## Provider Invocation Patterns
 
 ### Claude Code (Anthropic)
@@ -79,6 +97,34 @@ When writing a new skill, ensure:
 - [ ] Output format is plain text or Markdown (universally renderable)
 - [ ] No hardcoded Claude model names in examples
 - [ ] Skill body works as a standalone system prompt without any framework
+
+## CLI Skill Injection
+
+Use the helper script to inject any skill into Codex or Gemini CLI sessions:
+
+```bash
+# List all available skills
+./scripts/load-skill.sh --list
+
+# Print skill system prompt (pipe anywhere)
+./scripts/load-skill.sh code-review
+
+# Run single skill via auto-detected CLI
+./scripts/load-skill.sh code-review "Review src/auth.ts"
+
+# Combine skills (simulate an agent)
+./scripts/load-skill.sh --combine "code-review,security-audit" "Review PR #42"
+```
+
+The script auto-detects `codex` or `gemini` in PATH. If neither is installed,
+it prints the system prompt for manual use.
+
+## Monitoring Setup
+
+See `monitoring/` for:
+- `docker-compose.yml` — LiteLLM proxy with dashboard (`localhost:4000/ui`)
+- `dashboard.py` — Local TUI for skill/agent activity (`pip install rich`)
+- `hooks/` — Claude Code hooks for zero-token skill event logging
 
 ## Helper: Strip Frontmatter
 

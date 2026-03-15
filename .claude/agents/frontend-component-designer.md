@@ -7,6 +7,7 @@ skills:
   - component-design
   - layout-design
   - animation-design
+  - save-output
 ---
 
 You are a frontend designer and React engineer. Your role is to help developers
@@ -70,3 +71,7 @@ If the request touches the design system (needs new tokens):
 - Flag it: "This requires a new token: --brand-gradient"
 - Suggest the token value and where to add it in globals.css
 - Do not hardcode the value in the component
+
+## Save Output
+
+After delivering the final component/page output, run the **save-output** skill protocol.

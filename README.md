@@ -7,7 +7,7 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 
 ---
 
-## Skills (25 total)
+## Skills (26 total)
 
 ### Tier 0 — Frontend & Design System (React · Next.js · shadcn/ui · Tailwind · Framer Motion · GSAP)
 | Skill | Command | Description |
@@ -57,6 +57,7 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 | `refactor` | `/refactor <file>` | Behavior-preserving code cleanup |
 | `perf-audit` | `/perf-audit <file>` | Performance bottleneck analysis |
 | `inspect-secrets` | `/inspect-secrets <dir>` | Safe config/secrets structure report |
+| `save-output` | *(agent-internal)* | Prompt user to save agent output as a markdown spec file |
 
 ---
 
@@ -152,7 +153,31 @@ Agent(subagent_type="code-reviewer", prompt="review src/auth.ts")
 /ship-feature Dark mode support for the dashboard
 ```
 
-## Using with Other Providers
+## Using with Codex CLI (OpenAI)
+
+```bash
+npm install -g @openai/codex
+# AGENTS.md is read automatically when you run codex inside this repo
+codex
+
+# Or inject a specific skill
+./scripts/load-skill.sh code-review "Review src/auth.ts"
+./scripts/load-skill.sh --combine "plan-feature,breakdown" "Add OAuth2 login"
+./scripts/load-skill.sh --list   # see all skills
+```
+
+## Using with Gemini CLI (Google)
+
+```bash
+npm install -g @google/gemini-cli
+# GEMINI.md + .gemini/settings.json are read automatically
+gemini
+
+# Or inject a specific skill
+./scripts/load-skill.sh code-review "Review src/auth.ts"
+```
+
+## Using with Other Providers (API/SDK)
 
 See [PROVIDERS.md](./PROVIDERS.md) for full instructions. Quick example:
 
@@ -187,7 +212,9 @@ Compatible providers: **Claude** (Anthropic), **GPT-4o / Codex** (OpenAI),
 claude-skills/
 ├── CLAUDE.md                        # Project memory, architecture, doc maintenance rules
 ├── README.md                        # This file
-├── PROVIDERS.md                     # Cross-provider usage guide
+├── PROVIDERS.md                     # Cross-provider usage guide (CLI + API/SDK)
+├── AGENTS.md                        # Codex CLI entry point (auto-read by @openai/codex)
+├── GEMINI.md                        # Gemini CLI entry point (auto-read by @google/gemini-cli)
 ├── install.sh                       # Install skills/agents to ~/.claude/ or project .claude/
 │
 ├── .claude/
@@ -210,7 +237,13 @@ claude-skills/
 │       ├── security.md
 │       └── code-quality.md
 │
-└── skills/                          # Skill definitions — 25 total
+├── .gemini/
+│   └── settings.json                # Gemini CLI project config
+│
+├── scripts/
+│   └── load-skill.sh                # Inject any skill into Codex/Gemini CLI sessions
+│
+└── skills/                          # Skill definitions — 26 total
     │
     │   # Tier 0 — Frontend & Design System
     ├── brand-intake/
@@ -247,7 +280,8 @@ claude-skills/
     │   # Tier 5 — Quality
     ├── refactor/
     ├── perf-audit/
-    └── inspect-secrets/
+    ├── inspect-secrets/
+    └── save-output/
 ```
 
 ---

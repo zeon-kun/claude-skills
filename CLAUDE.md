@@ -21,7 +21,7 @@ All components are model-agnostic and work across Claude, Codex, Gemini, MiniMax
 - **Tier 2 — Architecture**: `api-design`, `db-schema`, `adr`, `breakdown`
 - **Tier 3 — DevOps**: `dockerfile`, `ci-pipeline`
 - **Tier 4 — Documentation**: `write-docs`, `changelog`, `explain-code`
-- **Tier 5 — Quality**: `refactor`, `perf-audit`, `inspect-secrets`
+- **Tier 5 — Quality**: `refactor`, `perf-audit`, `inspect-secrets`, `save-output`
 
 ### Agents
 - `design-system-architect` — brand-intake + design-system-init + design-system-audit
@@ -47,9 +47,31 @@ User-invocable skills (via Skill tool):
 Skill(skill="plan-feature", args="user authentication module")
 ```
 
-### Cross-Provider Compatibility
-All SKILL.md files are plain markdown with YAML frontmatter — portable to any model.
-See `PROVIDERS.md` for provider-specific invocation patterns.
+### Cross-Provider CLI Setup
+
+| CLI | Entry File | Auto-read |
+|-----|-----------|-----------|
+| Claude Code | `CLAUDE.md` | Yes |
+| Codex CLI (`@openai/codex`) | `AGENTS.md` | Yes |
+| Gemini CLI (`@google/gemini-cli`) | `GEMINI.md` + `.gemini/settings.json` | Yes |
+
+Use `scripts/load-skill.sh <skill> "<prompt>"` to inject skills into Codex/Gemini CLI sessions.
+See `PROVIDERS.md` for full CLI + API/SDK invocation patterns.
+
+### Monitoring
+Use [ccboard](https://github.com/florianbruniaux/ccboard) for token usage, cost tracking, and session monitoring.
+No project config needed — ccboard reads `~/.claude/` directly.
+
+```bash
+# Install (once per engineer)
+brew tap FlorianBruniaux/tap && brew install ccboard
+
+# Web dashboard
+ccboard web --port 3333
+
+# Add to ~/.claude/settings.json for budget tracking
+# { "subscriptionPlan": "pro", "budget": { "monthlyBudgetUsd": 50.0, "alertThresholdPct": 80.0 } }
+```
 
 ### Orchestration Pattern
 Command → Agent (with preloaded skills) → Output
