@@ -22,6 +22,7 @@ All components are model-agnostic and work across Claude, Codex, Gemini, MiniMax
 - **Tier 3 — DevOps**: `dockerfile`, `ci-pipeline`
 - **Tier 4 — Documentation**: `write-docs`, `changelog`, `explain-code`
 - **Tier 5 — Quality**: `refactor`, `perf-audit`, `inspect-secrets`, `save-output`
+- **Tier 6 — SDLC Pipeline**: `codebase-ingest`, `session-plan`, `doc-sync`
 
 ### Agents
 - `design-system-architect` — brand-intake + design-system-init + design-system-audit
@@ -30,10 +31,15 @@ All components are model-agnostic and work across Claude, Codex, Gemini, MiniMax
 - `code-reviewer` — code-review + security-audit
 - `feature-planner` — plan-feature + breakdown + estimate + api-design
 - `devops-engineer` — dockerfile + ci-pipeline
+- `scout` — codebase-ingest + explain-code + design-system-audit (SDLC stage 1)
+- `navigator` — session-plan + breakdown + estimate (SDLC stage 2)
+- `forge` — all execution skills (SDLC stage 3)
+- `scribe` — doc-sync + write-docs + changelog (SDLC stage 4)
 
 ### Commands
 - `/init-design-system`, `/design-component`, `/design-page`
 - `/plan-sprint`, `/review-pr`, `/ship-feature`
+- `/dev-session` — full SDLC pipeline: scout → navigator → forge → scribe
 
 ## Key Patterns
 

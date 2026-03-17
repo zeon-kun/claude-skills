@@ -7,7 +7,7 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 
 ---
 
-## Skills (26 total)
+## Skills (29 total)
 
 ### Tier 0 — Frontend & Design System (React · Next.js · shadcn/ui · Tailwind · Framer Motion · GSAP)
 | Skill | Command | Description |
@@ -59,10 +59,26 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 | `inspect-secrets` | `/inspect-secrets <dir>` | Safe config/secrets structure report |
 | `save-output` | *(agent-internal)* | Prompt user to save agent output as a markdown spec file |
 
+### Tier 6 — SDLC Pipeline
+| Skill | Command | Description |
+|-------|---------|-------------|
+| `codebase-ingest` | `/codebase-ingest <dir>` | Systematic codebase analysis — architecture, patterns, brand, doc health |
+| `session-plan` | `/session-plan <goals>` | Token-aware session planning with prioritized TASKS.md generation |
+| `doc-sync` | *(agent-internal)* | Sync provider docs and TASKS.md after task execution |
+
 ---
 
-## Agents (6 orchestrators)
+## Agents (10 orchestrators)
 
+### SDLC Pipeline Agents
+| Agent | Skills Preloaded | Best For |
+|-------|-----------------|---------|
+| `scout` | codebase-ingest + explain-code + design-system-audit | Codebase digest at session start |
+| `navigator` | session-plan + breakdown + estimate | Task planning and TASKS.md generation |
+| `forge` | All execution skills | Executing tasks from TASKS.md |
+| `scribe` | doc-sync + write-docs + changelog | Syncing provider docs after execution |
+
+### Specialist Agents
 | Agent | Skills Preloaded | Best For |
 |-------|-----------------|---------|
 | `design-system-architect` | brand-intake + design-system-init + design-system-audit | Bootstrap or formalize a design system |
@@ -72,10 +88,11 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 | `feature-planner` | plan-feature + breakdown + estimate + api-design | Sprint planning |
 | `devops-engineer` | dockerfile + ci-pipeline | Infrastructure setup |
 
-## Commands (6 workflows)
+## Commands (7 workflows)
 
 | Command | Description |
 |---------|-------------|
+| `/dev-session` | Full SDLC pipeline: scout → navigator → forge → scribe |
 | `/init-design-system` | Full design system bootstrap: brand interview → tokens → globals.css |
 | `/design-component` | Design a component with layout + tokens + animation |
 | `/design-page` | Design a full Next.js page section by section |
@@ -219,14 +236,19 @@ claude-skills/
 │
 ├── .claude/
 │   ├── settings.json                # Project-level permissions
-│   ├── agents/                      # Specialized subagents (6)
+│   ├── agents/                      # Specialized subagents (10)
+│   │   ├── scout.md                 # SDLC: codebase digestor
+│   │   ├── navigator.md             # SDLC: session planner
+│   │   ├── forge.md                 # SDLC: task executor
+│   │   ├── scribe.md                # SDLC: doc sync
 │   │   ├── design-system-architect.md
 │   │   ├── frontend-component-designer.md
 │   │   ├── frontend-reviewer.md
 │   │   ├── code-reviewer.md
 │   │   ├── feature-planner.md
 │   │   └── devops-engineer.md
-│   ├── commands/                    # Slash command workflows (6)
+│   ├── commands/                    # Slash command workflows (7)
+│   │   ├── dev-session.md           # Full SDLC pipeline
 │   │   ├── init-design-system.md
 │   │   ├── design-component.md
 │   │   ├── design-page.md
@@ -243,7 +265,7 @@ claude-skills/
 ├── scripts/
 │   └── load-skill.sh                # Inject any skill into Codex/Gemini CLI sessions
 │
-└── skills/                          # Skill definitions — 26 total
+└── skills/                          # Skill definitions — 29 total
     │
     │   # Tier 0 — Frontend & Design System
     ├── brand-intake/
@@ -281,7 +303,12 @@ claude-skills/
     ├── refactor/
     ├── perf-audit/
     ├── inspect-secrets/
-    └── save-output/
+    ├── save-output/
+    │
+    │   # Tier 6 — SDLC Pipeline
+    ├── codebase-ingest/
+    ├── session-plan/
+    └── doc-sync/
 ```
 
 ---

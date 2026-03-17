@@ -5,8 +5,9 @@
 
 ## What This Repo Provides
 
-26 production-grade skills organized into tiers. Each skill in `skills/<name>/SKILL.md`
-is a standalone system prompt — inject it into any Codex session.
+29 production-grade skills, 10 agents, and 7 slash commands organized into tiers.
+Each skill in `skills/<name>/SKILL.md` is a standalone system prompt — inject it into any Codex session.
+Commands in `.claude/commands/<name>.md` are Claude Code slash commands (`/command-name`).
 
 ## How to Use Skills with Codex CLI
 
@@ -63,6 +64,26 @@ codex --instructions "$(cat skills/code-review/SKILL.md | sed '/^---$/,/^---$/d'
 - `inspect-secrets` — Safely audit config/secrets structure
 - `save-output` — Save session output as markdown spec
 
+**Tier 6 — SDLC Pipeline**
+- `codebase-ingest` — Systematic codebase analysis (architecture, patterns, brand, doc health)
+- `session-plan` — Token-aware session planning with prioritized TASKS.md generation
+- `doc-sync` — Sync provider docs and TASKS.md after task execution
+
+## Commands (Claude Code Slash Commands)
+
+Commands in `.claude/commands/` are invoked as `/command-name` in Claude Code.
+Codex CLI does not natively support slash commands — use the equivalent skill combination instead.
+
+| Command | Purpose | Codex Equivalent |
+|---|---|---|
+| `/dev-session` | Full SDLC pipeline: scout → navigator → forge → scribe | Run each agent skill combination in sequence |
+| `/plan-sprint` | Sprint planning with estimates and backlog | `session-plan` + `breakdown` + `estimate` |
+| `/review-pr` | Full PR review with security scan | `code-review` + `security-audit` |
+| `/ship-feature` | Feature implementation end-to-end | `plan-feature` + execution skills |
+| `/init-design-system` | Bootstrap design system | `brand-intake` + `design-system-init` |
+| `/design-component` | Design a React component | `component-design` |
+| `/design-page` | Design a full page layout | `layout-design` + `component-design` |
+
 ## Agent Equivalents
 
 Claude-specific subagents are not natively supported in Codex CLI, but you can
@@ -70,6 +91,10 @@ simulate them by combining skills:
 
 | Claude Agent | Codex Equivalent |
 |---|---|
+| `scout` | `codebase-ingest` + `explain-code` + `design-system-audit` skills |
+| `navigator` | `session-plan` + `breakdown` + `estimate` skills |
+| `forge` | All execution skills combined for the task at hand |
+| `scribe` | `doc-sync` + `write-docs` + `changelog` skills |
 | `code-reviewer` | `code-review` + `security-audit` skills |
 | `feature-planner` | `plan-feature` + `breakdown` + `estimate` |
 | `devops-engineer` | `dockerfile` + `ci-pipeline` |
