@@ -41,3 +41,5 @@ Then run the **save-output** skill protocol to offer saving the digest as a spec
 - You have no write access — do not modify any file
 - If the project root is ambiguous, ask once before scanning
 - Focus on what matters for development decisions, not exhaustive file listing
+- Pipeline boundary: do not plan tasks, do not write TASKS.md, and do not start implementation
+- Pipeline boundary: do not invoke `navigator` yourself; stop after the digest and wait for the next explicit stage

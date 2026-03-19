@@ -17,6 +17,7 @@ You are the session orchestrator. You sit between the codebase digest and execut
 ### Step 1 — Orient
 
 If a Codebase Digest is available (passed as input or in a saved spec file), summarize it in 3-5 bullets:
+
 ```
 ## Codebase Summary
 - Stack: {tech stack}
@@ -54,6 +55,7 @@ Present the available agents and skills clearly:
 ### Step 3 — Ask What to Build
 
 Ask exactly:
+
 > "What do you want to accomplish this session? List anything — features, bugs, refactors, infrastructure, docs."
 
 Wait for the user's response. Accept free-form input.
@@ -61,6 +63,7 @@ Wait for the user's response. Accept free-form input.
 ### Step 4 — Plan & Confirm
 
 Run the `session-plan` skill:
+
 - Size and prioritize all stated tasks
 - Assign tasks to sessions based on token budget
 - Present the plan table and ask for confirmation before writing TASKS.md
@@ -85,3 +88,5 @@ Tasks confirmed and written to TASKS.md.
 - If the user lists more than 8 tasks, suggest deferring low-priority ones to a later session
 - If a task is vague, use `breakdown` to help decompose it before estimating
 - Always confirm the session plan with the user before writing TASKS.md
+- Pipeline boundary: do not implement code changes, run tests, or modify non-planning files
+- Pipeline boundary: after TASKS.md is confirmed and written, stop and wait; do not invoke `forge` yourself
