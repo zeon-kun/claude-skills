@@ -21,7 +21,7 @@ All components are model-agnostic and work across Claude, Codex, Gemini, MiniMax
 - **Tier 2 — Architecture**: `api-design`, `db-schema`, `adr`, `breakdown`
 - **Tier 3 — DevOps**: `dockerfile`, `ci-pipeline`
 - **Tier 4 — Documentation**: `write-docs`, `changelog`, `explain-code`
-- **Tier 5 — Quality**: `refactor`, `perf-audit`, `inspect-secrets`, `save-output`
+- **Tier 5 — Quality**: `refactor`, `perf-audit`, `inspect-secrets`, `save-output`, `generate-rules`
 - **Tier 6 — SDLC Pipeline**: `codebase-ingest`, `session-plan`, `doc-sync`
 - **Tier 7 — Repository**: `git-history-restructure`
 
@@ -33,6 +33,8 @@ All components are model-agnostic and work across Claude, Codex, Gemini, MiniMax
 - `feature-planner` — plan-feature + breakdown + estimate + api-design
 - `devops-engineer` — dockerfile + ci-pipeline
 - `repo-historian` — codebase-ingest + git-history-restructure
+- `architect` — brand-intake + api-design + db-schema + adr + design-system-init (greenfield intake)
+- `rules-writer` — generate-rules (codify project decisions into .claude/rules/)
 - `scout` — codebase-ingest + explain-code + design-system-audit (SDLC stage 1)
 - `navigator` — session-plan + breakdown + estimate (SDLC stage 2)
 - `forge` — all execution skills (SDLC stage 3)
@@ -41,7 +43,7 @@ All components are model-agnostic and work across Claude, Codex, Gemini, MiniMax
 ### Commands
 - `/init-design-system`, `/design-component`, `/design-page`
 - `/plan-sprint`, `/review-pr`, `/ship-feature`
-- `/dev-session` — full SDLC pipeline: scout → navigator → forge → scribe
+- `/dev-session` — phase-aware SDLC pipeline: greenfield | existing | prototype
 
 ## Key Patterns
 
