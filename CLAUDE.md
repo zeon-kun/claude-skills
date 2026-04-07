@@ -23,6 +23,7 @@ All components are model-agnostic and work across Claude, Codex, Gemini, MiniMax
 - **Tier 4 — Documentation**: `write-docs`, `changelog`, `explain-code`
 - **Tier 5 — Quality**: `refactor`, `perf-audit`, `inspect-secrets`, `save-output`
 - **Tier 6 — SDLC Pipeline**: `codebase-ingest`, `session-plan`, `doc-sync`
+- **Tier 7 — Repository**: `git-history-restructure`
 
 ### Agents
 - `design-system-architect` — brand-intake + design-system-init + design-system-audit
@@ -31,6 +32,7 @@ All components are model-agnostic and work across Claude, Codex, Gemini, MiniMax
 - `code-reviewer` — code-review + security-audit
 - `feature-planner` — plan-feature + breakdown + estimate + api-design
 - `devops-engineer` — dockerfile + ci-pipeline
+- `repo-historian` — codebase-ingest + git-history-restructure
 - `scout` — codebase-ingest + explain-code + design-system-audit (SDLC stage 1)
 - `navigator` — session-plan + breakdown + estimate (SDLC stage 2)
 - `forge` — all execution skills (SDLC stage 3)
@@ -87,6 +89,7 @@ Example: `/plan-sprint` → `sprint-planner` agent (with `estimate` + `breakdown
 - Keep CLAUDE.md files under 200 lines — split into `.claude/rules/` for longer content
 - Security skills run in read-only mode by default
 - Agents default to `sonnet` model; upgrade to `opus` only for architecture decisions
+- **Zero AI attribution in commits.** No `Co-Authored-By: Claude`, no `Generated with Claude Code`, no `🤖`. Not for any reason. No exceptions.
 
 ## Standards
 - All skills use only supported SKILL.md frontmatter: `name`, `description`, `argument-hint`, `user-invocable`, `disable-model-invocation`
