@@ -24,7 +24,7 @@ prototype:   scout(--shallow) → navigator → forge → scribe(--lean)
 ## What You Get
 
 1. **Codebase Digest** — architecture map, code patterns, doc health report
-2. **TASKS.md** — prioritized checklist with session planning and token estimates
+2. **Session tasks file** — prioritized checklist in task/session-N/tasks.md
 3. **Executed changes** — features, fixes, tests, or docs delivered by forge
 4. **Synced provider docs** — CLAUDE.md, GEMINI.md, AGENTS.md, WARP.md up to date
 5. **CHANGELOG.md entry** — structured record of what was done
@@ -75,6 +75,7 @@ After resolving phase, check `$ARGUMENTS` for shortcut flags first:
 - `--sync-only` → skip to [Scribe Stage] regardless of phase
 - `--exec-only` → skip to [Forge Stage] regardless of phase
 - `--skip-scout` → skip scout/architect stage, go directly to [Navigator Stage]
+  - **Greenfield note:** In greenfield phase, `--skip-scout` skips architect + rules-writer. Only use this flag if `.claude/rules/` files already exist or you plan to provide decisions manually to navigator.
 - No shortcut flags → run the full pipeline for the resolved phase
 
 ---
@@ -104,17 +105,17 @@ This auto-transitions the project out of greenfield so the next session uses the
 Invoke the `navigator` agent using the architect handoff as the codebase digest:
 > "Here is the project decisions document from the architect: {architect_handoff}. Run the session planning workflow."
 
-Pause for user confirmation on TASKS.md before continuing.
+Pause for user confirmation on TASKS.md before continuing. Capture the session path as `{session_path}` from the navigator handoff.
 
 **Stage 4 — Forge**
 Invoke the `forge` agent:
-> "TASKS.md is ready. Execute all Session 1 tasks."
+> "Tasks are ready at {session_path}tasks.md. Execute the session tasks."
 
 Capture forge output as `{forge_handoff}`.
 
 **Stage 5 — Scribe**
 Invoke the `scribe` agent:
-> "Session complete. Here is the forge handoff: {forge_handoff}. Sync all provider docs and close the session."
+> "Session complete. Here is the forge handoff: {forge_handoff}. Session path: {session_path}. Sync all provider docs and close the session."
 
 ---
 
@@ -146,17 +147,17 @@ Capture the digest as `{digest}`.
 Invoke the `navigator` agent with the digest:
 > "Here is the Codebase Digest: {digest}. Run the session planning workflow."
 
-Pause for user confirmation on TASKS.md before continuing.
+Pause for user confirmation on TASKS.md before continuing. Capture the session path as `{session_path}` from the navigator handoff.
 
 **Stage 3 — Forge**
 Invoke the `forge` agent:
-> "TASKS.md is ready. Execute all Session 1 tasks."
+> "Tasks are ready at {session_path}tasks.md. Execute the session tasks."
 
 Capture forge output as `{forge_handoff}`.
 
 **Stage 4 — Scribe**
 Invoke the `scribe` agent:
-> "Session complete. Here is the forge handoff: {forge_handoff}. Sync all provider docs and close the session."
+> "Session complete. Here is the forge handoff: {forge_handoff}. Session path: {session_path}. Sync all provider docs and close the session."
 
 ---
 
@@ -180,17 +181,17 @@ Invoke the `navigator` agent with the shallow digest:
 
 Navigator will auto-skip the user-file prompt in prototype mode.
 
-Pause for user confirmation on TASKS.md before continuing.
+Pause for user confirmation on TASKS.md before continuing. Capture the session path as `{session_path}` from the navigator handoff.
 
 **Stage 3 — Forge**
 Invoke the `forge` agent:
-> "TASKS.md is ready. Execute all Session 1 tasks."
+> "Tasks are ready at {session_path}tasks.md. Execute the session tasks."
 
 Capture forge output as `{forge_handoff}`.
 
 **Stage 4 — Scribe (lean)**
 Invoke the `scribe` agent with the `--lean` flag:
-> "Session complete. Here is the forge handoff: {forge_handoff}. Run in --lean mode: update CHANGELOG.md and TASKS.md only. Skip full provider doc sync."
+> "Session complete. Here is the forge handoff: {forge_handoff}. Session path: {session_path}. Run in --lean mode: skip full provider doc sync."
 
 ---
 

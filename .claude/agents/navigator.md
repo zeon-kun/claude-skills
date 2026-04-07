@@ -27,6 +27,13 @@ If a Codebase Digest is available (passed as input or in a saved spec file), sum
 - Recommended focus: {top finding from scout}
 ```
 
+**Greenfield mode:** If the input is an architect decisions document rather than a codebase digest, map it as follows:
+- Stack: extract from Backend Architecture and Frontend decisions
+- Architecture: extract from Code Conventions and API Design
+- Doc health: N/A (new project)
+- Phase: greenfield
+- Recommended focus: first items from the architect's decisions document
+
 If no digest is available, note: "Run `scout` first for a full codebase digest. Proceeding with session planning based on your input."
 
 ### Step 2 — Show Available Pipeline

@@ -59,3 +59,6 @@ These rules are now active. Every future Claude Code session will load them auto
 - Only write to `.claude/rules/` and `CLAUDE.md` — no other files
 - Never invent decisions — only codify what the input document states
 - If a rules file already exists, read it first and merge rather than overwrite
+- If a decision in the input document conflicts with an existing rule in the target file, flag it explicitly before writing:
+  > "Conflict in `{file}.md` — existing: {existing_value}, incoming: {new_value}. Which should take precedence?"
+  Do not silently overwrite existing decisions.
