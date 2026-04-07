@@ -7,7 +7,7 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 
 ---
 
-## Skills (29 total)
+## Skills (30 total)
 
 ### Tier 0 — Frontend & Design System (React · Next.js · shadcn/ui · Tailwind · Framer Motion · GSAP)
 | Skill | Command | Description |
@@ -58,6 +58,7 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 | `perf-audit` | `/perf-audit <file>` | Performance bottleneck analysis |
 | `inspect-secrets` | `/inspect-secrets <dir>` | Safe config/secrets structure report |
 | `save-output` | *(agent-internal)* | Prompt user to save agent output as a markdown spec file |
+| `generate-rules` | `/generate-rules <doc>` | Convert a decisions document into .claude/rules/ files |
 
 ### Tier 6 — SDLC Pipeline
 | Skill | Command | Description |
@@ -68,7 +69,7 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 
 ---
 
-## Agents (10 orchestrators)
+## Agents (12 orchestrators)
 
 ### SDLC Pipeline Agents
 | Agent | Skills Preloaded | Best For |
@@ -81,6 +82,8 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 ### Specialist Agents
 | Agent | Skills Preloaded | Best For |
 |-------|-----------------|---------|
+| `architect` | brand-intake + api-design + db-schema + adr + design-system-init | Greenfield intake: brand, API, DB, security, code patterns |
+| `rules-writer` | generate-rules | Codify project decisions into .claude/rules/ files |
 | `design-system-architect` | brand-intake + design-system-init + design-system-audit | Bootstrap or formalize a design system |
 | `frontend-component-designer` | component-design + layout-design + animation-design | Design any component, section, or page |
 | `frontend-reviewer` | frontend-review + code-review | PR reviews for React/Next.js code |
@@ -92,7 +95,7 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 
 | Command | Description |
 |---------|-------------|
-| `/dev-session` | Full SDLC pipeline: scout → navigator → forge → scribe |
+| `/dev-session` | Phase-aware SDLC pipeline: greenfield, existing, or prototype routing |
 | `/init-design-system` | Full design system bootstrap: brand interview → tokens → globals.css |
 | `/design-component` | Design a component with layout + tokens + animation |
 | `/design-page` | Design a full Next.js page section by section |
@@ -236,11 +239,13 @@ claude-skills/
 │
 ├── .claude/
 │   ├── settings.json                # Project-level permissions
-│   ├── agents/                      # Specialized subagents (10)
+│   ├── agents/                      # Specialized subagents (12)
 │   │   ├── scout.md                 # SDLC: codebase digestor
 │   │   ├── navigator.md             # SDLC: session planner
 │   │   ├── forge.md                 # SDLC: task executor
 │   │   ├── scribe.md                # SDLC: doc sync
+│   │   ├── architect.md             # Greenfield intake
+│   │   ├── rules-writer.md          # Codify decisions into rules
 │   │   ├── design-system-architect.md
 │   │   ├── frontend-component-designer.md
 │   │   ├── frontend-reviewer.md
@@ -304,6 +309,7 @@ claude-skills/
     ├── perf-audit/
     ├── inspect-secrets/
     ├── save-output/
+    ├── generate-rules/
     │
     │   # Tier 6 — SDLC Pipeline
     ├── codebase-ingest/
