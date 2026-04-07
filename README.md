@@ -58,7 +58,7 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 | `perf-audit` | `/perf-audit <file>` | Performance bottleneck analysis |
 | `inspect-secrets` | `/inspect-secrets <dir>` | Safe config/secrets structure report |
 | `save-output` | *(agent-internal)* | Prompt user to save agent output as a markdown spec file |
-| `generate-rules` | `/generate-rules <doc>` | Convert a decisions document into .claude/rules/ files |
+| `generate-rules` | *(agent-internal)* | Convert a decisions document into .claude/rules/ files |
 
 ### Tier 6 — SDLC Pipeline
 | Skill | Command | Description |
