@@ -7,7 +7,7 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 
 ---
 
-## Skills (29 total)
+## Skills (30 total)
 
 ### Tier 0 — Frontend & Design System (React · Next.js · shadcn/ui · Tailwind · Framer Motion · GSAP)
 | Skill | Command | Description |
@@ -66,9 +66,14 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 | `session-plan` | `/session-plan <goals>` | Token-aware session planning with prioritized TASKS.md generation |
 | `doc-sync` | *(agent-internal)* | Sync provider docs and TASKS.md after task execution |
 
+### Tier 7 — Repository
+| Skill | Command | Description |
+|-------|---------|-------------|
+| `git-history-restructure` | *(agent-internal)* | Audit dirty repo state, group changes into clean logical commits, assess project structure |
+
 ---
 
-## Agents (10 orchestrators)
+## Agents (11 orchestrators)
 
 ### SDLC Pipeline Agents
 | Agent | Skills Preloaded | Best For |
@@ -87,6 +92,7 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 | `code-reviewer` | code-review + security-audit | Deep PR reviews |
 | `feature-planner` | plan-feature + breakdown + estimate + api-design | Sprint planning |
 | `devops-engineer` | dockerfile + ci-pipeline | Infrastructure setup |
+| `repo-historian` | codebase-ingest + git-history-restructure | Repo audit, clean commit restructuring, structure assessment |
 
 ## Commands (7 workflows)
 
@@ -236,7 +242,8 @@ claude-skills/
 │
 ├── .claude/
 │   ├── settings.json                # Project-level permissions
-│   ├── agents/                      # Specialized subagents (10)
+│   ├── agents/                      # Specialized subagents (11)
+│   │   ├── repo-historian.md        # Repo audit + commit restructuring
 │   │   ├── scout.md                 # SDLC: codebase digestor
 │   │   ├── navigator.md             # SDLC: session planner
 │   │   ├── forge.md                 # SDLC: task executor
@@ -308,7 +315,10 @@ claude-skills/
     │   # Tier 6 — SDLC Pipeline
     ├── codebase-ingest/
     ├── session-plan/
-    └── doc-sync/
+    ├── doc-sync/
+    │
+    │   # Tier 7 — Repository
+    └── git-history-restructure/
 ```
 
 ---
