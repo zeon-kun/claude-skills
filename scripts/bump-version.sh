@@ -40,14 +40,18 @@ if [[ ! -f "${VERSION_BUMP_FILE}" ]]; then
   exit 1
 fi
 
-# Extract file paths from the "files" array using a POSIX-compatible sed approach.
-# Reads lines between the first [ and the matching ] that contain quoted strings.
-mapfile -t FILES < <(
-  grep -oE '"[^"]+"' "${VERSION_BUMP_FILE}" \
-  | grep -v '"files"' \
-  | grep -v '"pattern"' \
-  | tr -d '"'
-)
+# Extract file paths from the "files" array using jq (preferred) or a fallback
+# sed approach that only reads the array block — avoids misreading other fields.
+if command -v jq &>/dev/null; then
+  mapfile -t FILES < <(jq -r '.files[]' "${VERSION_BUMP_FILE}")
+else
+  mapfile -t FILES < <(
+    sed -n '/^\s*"files"/,/^\s*\]/p' "${VERSION_BUMP_FILE}" \
+    | grep -oE '"[^"]+"' \
+    | grep -v '"files"' \
+    | tr -d '"'
+  )
+fi
 
 if [[ ${#FILES[@]} -eq 0 ]]; then
   echo "Error: no files found in .version-bump.json" >&2
