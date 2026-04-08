@@ -3,7 +3,7 @@
 ## Purpose
 Production-grade skills, agents, and tools for software development teams.
 Built against [claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice).
-All components are model-agnostic and work across Claude, Codex, Gemini, MiniMax, Kimi, and others.
+All components are model-agnostic and work across Claude, Codex, MiniMax, Kimi, and others.
 
 ## Architecture
 
@@ -61,11 +61,12 @@ Skill(skill="plan-feature", args="user authentication module")
 
 | CLI | Entry File | Auto-read |
 |-----|-----------|-----------|
+| Claude Code (plugin) | `.claude-plugin/plugin.json` | Via plugin manifest |
 | Claude Code | `CLAUDE.md` | Yes |
+| OpenCode | `.opencode/plugins/claude-skills.js` | Via `package.json` main |
 | Codex CLI (`@openai/codex`) | `AGENTS.md` | Yes |
-| Gemini CLI (`@google/gemini-cli`) | `GEMINI.md` + `.gemini/settings.json` | Yes |
 
-Use `scripts/load-skill.sh <skill> "<prompt>"` to inject skills into Codex/Gemini CLI sessions.
+Use `scripts/load-skill.sh <skill> "<prompt>"` to inject skills into Codex CLI sessions.
 See `PROVIDERS.md` for full CLI + API/SDK invocation patterns.
 
 ### Monitoring
@@ -85,7 +86,7 @@ ccboard web --port 3333
 
 ### Orchestration Pattern
 Command → Agent (with preloaded skills) → Output
-Example: `/plan-sprint` → `sprint-planner` agent (with `estimate` + `breakdown` skills) → Jira-ready backlog
+Example: `/plan-sprint` → `feature-planner` agent (with `estimate` + `breakdown` skills) → Jira-ready backlog
 
 ## Rules
 - Keep CLAUDE.md files under 200 lines — split into `.claude/rules/` for longer content

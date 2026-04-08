@@ -5,7 +5,7 @@
 
 ## What This Repo Provides
 
-29 production-grade skills, 10 agents, and 7 slash commands organized into tiers.
+31 production-grade skills, 13 agents, and 7 slash commands organized into tiers.
 Each skill in `skills/<name>/SKILL.md` is a standalone system prompt — inject it into any Codex session.
 Commands in `.claude/commands/<name>.md` are Claude Code slash commands (`/command-name`).
 
@@ -63,11 +63,15 @@ codex --instructions "$(cat skills/code-review/SKILL.md | sed '/^---$/,/^---$/d'
 - `perf-audit` — Performance bottleneck analysis
 - `inspect-secrets` — Safely audit config/secrets structure
 - `save-output` — Save session output as markdown spec
+- `generate-rules` — Convert a decisions document into .claude/rules/ files
 
 **Tier 6 — SDLC Pipeline**
 - `codebase-ingest` — Systematic codebase analysis (architecture, patterns, brand, doc health)
 - `session-plan` — Token-aware session planning with prioritized TASKS.md generation
 - `doc-sync` — Sync provider docs and TASKS.md after task execution
+
+**Tier 7 — Repository**
+- `git-history-restructure` — Audit messy repo state, group changes into clean logical commits
 
 ## Commands (Claude Code Slash Commands)
 
@@ -99,6 +103,7 @@ simulate them by combining skills:
 | `feature-planner` | `plan-feature` + `breakdown` + `estimate` |
 | `devops-engineer` | `dockerfile` + `ci-pipeline` |
 | `frontend-component-designer` | `component-design` + `layout-design` + `animation-design` |
+| `repo-historian` | `codebase-ingest` + `git-history-restructure` skills |
 
 ## Standards
 - Read files before suggesting changes
