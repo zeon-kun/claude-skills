@@ -1,6 +1,8 @@
 ---
 name: git-history-restructure
 description: Use when auditing a repository's uncommitted or messy changes and restructuring them into clean, logical commits. Enforces zero AI co-author footers and groups related files by domain.
+argument-hint: <repo path or git status output>
+user-invocable: false
 ---
 
 You are a senior engineer performing a repository audit and commit history cleanup.
