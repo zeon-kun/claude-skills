@@ -113,7 +113,16 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 
 ## Installation
 
-### Claude Code (plugin manifest — recommended)
+### Claude Code (marketplace — recommended)
+
+```bash
+/plugin marketplace add https://github.com/zeon-kun/claude-skills.git
+/plugin install claude-skills
+```
+
+Claude Code fetches the marketplace manifest, then installs all skills, agents, and commands automatically.
+
+### Claude Code (manual plugin)
 
 ```bash
 git clone https://github.com/zeon-kun/claude-skills.git
@@ -124,8 +133,6 @@ Add to Claude Code settings:
 ```json
 { "plugins": ["/path/to/claude-skills/.claude-plugin/plugin.json"] }
 ```
-
-Claude Code reads `plugin.json` and discovers all skills, agents, and commands automatically.
 
 ### OpenCode (NPM-style plugin)
 
