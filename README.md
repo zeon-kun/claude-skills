@@ -3,11 +3,11 @@
 > Cross-provider agent skills, tools, and orchestration patterns for software houses.
 
 Built following [claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice).
-All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, Gemini, MiniMax, Kimi, and others.
+All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, MiniMax, Kimi, and others.
 
 ---
 
-## Skills (30 total)
+## Skills (31 total)
 
 ### Tier 0 — Frontend & Design System (React · Next.js · shadcn/ui · Tailwind · Framer Motion · GSAP)
 | Skill | Command | Description |
@@ -74,7 +74,7 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 
 ---
 
-## Agents (12 orchestrators)
+## Agents (13 orchestrators)
 
 ### SDLC Pipeline Agents
 | Agent | Skills Preloaded | Best For |
@@ -113,40 +113,55 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 
 ## Installation
 
-### Discovery Paths (Claude Code)
+### Claude Code (plugin manifest — recommended)
 
-| Component | Global (all projects) | Project-only |
-|-----------|----------------------|--------------|
-| Skills | `~/.claude/skills/<name>/` | `.claude/skills/<name>/` |
-| Agents | `~/.claude/agents/<name>.md` | `.claude/agents/<name>.md` |
-
-The `skills/` and `.claude/agents/` in this repo are the **distribution source**.
-Use the install script to copy them to the correct discovery paths.
-
-**Install everything globally (recommended):**
 ```bash
-git clone https://github.com/yourorg/claude-skills
+git clone https://github.com/YOUR_ORG/claude-skills.git
+```
+
+Add to Claude Code settings:
+
+```json
+{ "plugins": ["/path/to/claude-skills/.claude-plugin/plugin.json"] }
+```
+
+Claude Code reads `plugin.json` and discovers all skills, agents, and commands automatically.
+
+### OpenCode (NPM-style plugin)
+
+Add to `opencode.json`:
+
+```json
+{ "plugins": ["git+https://github.com/YOUR_ORG/claude-skills.git"] }
+```
+
+OpenCode resolves `package.json` → `.opencode/plugins/claude-skills.js`. No `npm install` needed.
+See `.opencode/INSTALL.md` for local-clone instructions.
+
+### Codex CLI (symlink)
+
+```bash
+git clone https://github.com/YOUR_ORG/claude-skills.git
+# AGENTS.md is read automatically when you run codex inside this repo
+# Or symlink skills/ to your global agents directory:
+ln -s /path/to/claude-skills/skills ~/.agents/skills/claude-skills
+```
+
+### Direct install (`install.sh`)
+
+```bash
+git clone https://github.com/YOUR_ORG/claude-skills.git
 cd claude-skills
-./install.sh
-```
-
-**Install specific skills and/or agents globally:**
-```bash
-./install.sh --skills code-review security-audit debug
-./install.sh --agents code-reviewer feature-planner
-```
-
-**Install to a specific project (run from inside that project):**
-```bash
-cd /path/to/myproject
-/path/to/claude-skills/install.sh --project
-./install.sh --project --skills code-review --agents code-reviewer
+./install.sh                           # copy everything to ~/.claude/
+./install.sh --skills code-review debug
+./install.sh --agents code-reviewer
+./install.sh --project                 # copy to current project's .claude/
 ```
 
 **Manual (copy one):**
 ```bash
-cp -r skills/code-review ~/.claude/skills/         # skill
-cp .claude/agents/code-reviewer.md ~/.claude/agents/ # agent
+cp -r skills/code-review ~/.claude/skills/
+cp .claude/agents/code-reviewer.md ~/.claude/agents/
 ```
 
 After installation:
@@ -192,17 +207,6 @@ codex
 ./scripts/load-skill.sh --list   # see all skills
 ```
 
-## Using with Gemini CLI (Google)
-
-```bash
-npm install -g @google/gemini-cli
-# GEMINI.md + .gemini/settings.json are read automatically
-gemini
-
-# Or inject a specific skill
-./scripts/load-skill.sh code-review "Review src/auth.ts"
-```
-
 ## Using with Other Providers (API/SDK)
 
 See [PROVIDERS.md](./PROVIDERS.md) for full instructions. Quick example:
@@ -228,7 +232,7 @@ response = client.chat.completions.create(
 ```
 
 Compatible providers: **Claude** (Anthropic), **GPT-4o / Codex** (OpenAI),
-**Gemini** (Google), **MiniMax**, **Kimi** (Moonshot AI), any OpenAI-compatible API.
+**MiniMax**, **Kimi** (Moonshot AI), any OpenAI-compatible API.
 
 ---
 
@@ -240,12 +244,23 @@ claude-skills/
 ├── README.md                        # This file
 ├── PROVIDERS.md                     # Cross-provider usage guide (CLI + API/SDK)
 ├── AGENTS.md                        # Codex CLI entry point (auto-read by @openai/codex)
-├── GEMINI.md                        # Gemini CLI entry point (auto-read by @google/gemini-cli)
+├── CHANGELOG.md
+├── package.json                     # NPM metadata: version, main entry, license
+├── .version-bump.json               # Multi-file version sync config
 ├── install.sh                       # Install skills/agents to ~/.claude/ or project .claude/
+│
+├── .claude-plugin/                  # Claude Code plugin manifest
+│   ├── plugin.json                  # Plugin entry point (skills, agents, commands paths)
+│   └── marketplace.json             # Claude marketplace listing metadata
+│
+├── .opencode/                       # OpenCode plugin adapter
+│   ├── INSTALL.md                   # OpenCode install instructions
+│   └── plugins/
+│       └── claude-skills.js         # Zero-dependency JS plugin (main per package.json)
 │
 ├── .claude/
 │   ├── settings.json                # Project-level permissions
-│   ├── agents/                      # Specialized subagents (12)
+│   ├── agents/                      # Specialized subagents (13)
 │   │   ├── repo-historian.md        # Repo audit + commit restructuring
 │   │   ├── scout.md                 # SDLC: codebase digestor
 │   │   ├── navigator.md             # SDLC: session planner
@@ -271,13 +286,11 @@ claude-skills/
 │       ├── security.md
 │       └── code-quality.md
 │
-├── .gemini/
-│   └── settings.json                # Gemini CLI project config
-│
 ├── scripts/
-│   └── load-skill.sh                # Inject any skill into Codex/Gemini CLI sessions
+│   ├── load-skill.sh                # Inject any skill into Codex CLI sessions
+│   └── bump-version.sh              # Bump version across all files in .version-bump.json
 │
-└── skills/                          # Skill definitions — 29 total
+└── skills/                          # Skill definitions — 31 total
     │
     │   # Tier 0 — Frontend & Design System
     ├── brand-intake/
