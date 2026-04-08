@@ -10,7 +10,7 @@ Add claude-skills as a plugin in your `opencode.json`:
 ```json
 {
   "plugins": [
-    "git+https://github.com/YOUR_ORG/claude-skills.git"
+    "git+https://github.com/zeon-kun/claude-skills.git"
   ]
 }
 ```
@@ -27,7 +27,7 @@ under the skill name declared in its frontmatter.
 ## Manual Install (local clone)
 
 ```bash
-git clone https://github.com/YOUR_ORG/claude-skills.git
+git clone https://github.com/zeon-kun/claude-skills.git
 ```
 
 Then in your `opencode.json`:

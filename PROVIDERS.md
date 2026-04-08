@@ -14,7 +14,7 @@ A skill's `SKILL.md` body is a system prompt that can be injected into any LLM.
 Clone the repo and point Claude Code at the plugin manifest:
 
 ```bash
-git clone https://github.com/YOUR_ORG/claude-skills.git
+git clone https://github.com/zeon-kun/claude-skills.git
 ```
 
 In your Claude Code settings, add the plugin path:
@@ -60,7 +60,7 @@ Add to your `opencode.json`:
 ```json
 {
   "plugins": [
-    "git+https://github.com/YOUR_ORG/claude-skills.git"
+    "git+https://github.com/zeon-kun/claude-skills.git"
   ]
 }
 ```
@@ -68,7 +68,7 @@ Add to your `opencode.json`:
 **Install from local clone**
 
 ```bash
-git clone https://github.com/YOUR_ORG/claude-skills.git
+git clone https://github.com/zeon-kun/claude-skills.git
 ```
 
 Then in `opencode.json`:

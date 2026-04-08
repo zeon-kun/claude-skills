@@ -116,7 +116,7 @@ All skills work as system prompts with **any LLM provider** — Claude, GPT-4o, 
 ### Claude Code (plugin manifest — recommended)
 
 ```bash
-git clone https://github.com/YOUR_ORG/claude-skills.git
+git clone https://github.com/zeon-kun/claude-skills.git
 ```
 
 Add to Claude Code settings:
@@ -132,7 +132,7 @@ Claude Code reads `plugin.json` and discovers all skills, agents, and commands a
 Add to `opencode.json`:
 
 ```json
-{ "plugins": ["git+https://github.com/YOUR_ORG/claude-skills.git"] }
+{ "plugins": ["git+https://github.com/zeon-kun/claude-skills.git"] }
 ```
 
 OpenCode resolves `package.json` → `.opencode/plugins/claude-skills.js`. No `npm install` needed.
@@ -141,7 +141,7 @@ See `.opencode/INSTALL.md` for local-clone instructions.
 ### Codex CLI (symlink)
 
 ```bash
-git clone https://github.com/YOUR_ORG/claude-skills.git
+git clone https://github.com/zeon-kun/claude-skills.git
 # AGENTS.md is read automatically when you run codex inside this repo
 # Or symlink skills/ to your global agents directory:
 ln -s /path/to/claude-skills/skills ~/.agents/skills/claude-skills
@@ -150,7 +150,7 @@ ln -s /path/to/claude-skills/skills ~/.agents/skills/claude-skills
 ### Direct install (`install.sh`)
 
 ```bash
-git clone https://github.com/YOUR_ORG/claude-skills.git
+git clone https://github.com/zeon-kun/claude-skills.git
 cd claude-skills
 ./install.sh                           # copy everything to ~/.claude/
 ./install.sh --skills code-review debug

@@ -136,7 +136,7 @@ Initial release. Production-grade skills, agents, and commands for software deve
 - `.claude/rules/security.md` — Non-negotiable security rules loaded by all agents
 - `.claude/rules/code-quality.md` — Code generation and review standards
 
-[Unreleased]: https://github.com/yourorg/claude-skills/compare/v0.3.0...HEAD
-[0.3.0]: https://github.com/yourorg/claude-skills/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/yourorg/claude-skills/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/yourorg/claude-skills/releases/tag/v0.1.0
+[Unreleased]: https://github.com/zeon-kun/claude-skills/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/zeon-kun/claude-skills/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/zeon-kun/claude-skills/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/zeon-kun/claude-skills/releases/tag/v0.1.0
