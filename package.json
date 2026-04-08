@@ -1,0 +1,12 @@
+{
+  "name": "claude-skills",
+  "version": "0.2.0",
+  "description": "Production-grade skills, agents, and commands for AI-assisted software development",
+  "main": ".opencode/plugins/claude-skills.js",
+  "license": "MIT",
+  "keywords": ["claude", "ai", "skills", "agents", "opencode", "codex"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_ORG/claude-skills.git"
+  }
+}

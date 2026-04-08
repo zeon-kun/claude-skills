@@ -1,0 +1,8 @@
+{
+  "files": [
+    "package.json",
+    ".claude-plugin/plugin.json",
+    ".claude-plugin/marketplace.json"
+  ],
+  "pattern": "\"version\": \"[^\"]+\""
+}

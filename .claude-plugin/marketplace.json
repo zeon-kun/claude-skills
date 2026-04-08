@@ -1,0 +1,9 @@
+{
+  "name": "claude-skills",
+  "display_name": "Claude Skills — Software House Toolkit",
+  "version": "0.2.0",
+  "description": "31 production-grade skills across 7 tiers: frontend, architecture, DevOps, documentation, quality, SDLC pipeline, and repository management.",
+  "author": "claude-skills contributors",
+  "tags": ["skills", "agents", "software-house", "sdlc", "devops"],
+  "entry": ".claude-plugin/plugin.json"
+}

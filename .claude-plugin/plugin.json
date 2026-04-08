@@ -1,0 +1,9 @@
+{
+  "name": "claude-skills",
+  "version": "0.2.0",
+  "description": "Production-grade skills, agents, and commands for AI-assisted software development",
+  "skills": "../skills/",
+  "agents": "../.claude/agents/",
+  "commands": "../.claude/commands/",
+  "hooks": null
+}
